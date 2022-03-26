@@ -3,13 +3,16 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from'cors';
 
-import postrouter from './routes/posts.js'
+import experimentRouter from './routes/experiments.js'
 const app = express();
 
-app.use('/posts',postrouter)
+
 
 app.use(bodyParser.urlencoded({ limit: "30mb", extended:true}))
+app.use(bodyParser.json({ limit: "30mb", extended:true}))
 app.use(cors())
+
+app.use('/experiments',experimentRouter)
 
 const CONNECTION_URL = 'mongodb+srv://doorstepsmastery:doorstepsmastery123@cluster0.sy8bw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const PORT = process.env.PORT || 5000;
