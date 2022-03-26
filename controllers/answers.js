@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Answer from "../models/answerSchema.js";
 
 export const SubmitAns = async (req, res) => {
@@ -14,3 +15,4 @@ export const SubmitAns = async (req, res) => {
         res.status(409).json({message:error.message})
    }
 }
+

@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Experiment from "../models/experimentSchema.js";
 
 export const getExperiments = async(req,res) => {
@@ -31,6 +32,20 @@ export const FetchExperimentByName = async (req, res) => {
         res.status(200).json(singleExperiment);
     } catch (error) {
         res.status(500).json({message: error});
+    }
+}
+
+export const DeleteExperimentById = async (req,res) => {
+    const {id} = req.params;
+    console.log(id);
+    try {
+         if(!mongoose.Types.ObjectId.isValid(id)) 
+             return res.status(404).send('No experiment with that Id');
+        await Experiment.findByIdAndRemove(id);
+        res.status(200).json('delete successfully');
+
+    } catch (error) {
+        res.status(409).json({message:error.message})
     }
 }
 
