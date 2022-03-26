@@ -3,7 +3,6 @@ import Experiment from "../models/experimentSchema.js";
 export const getExperiments = async(req,res) => {
     try {
         const experiments = await Experiment.find();
-        console.log(experiments)
         res.status(200).json(experiments)
     } catch (error) {
         res.status(404).json({message:error.message})
@@ -16,8 +15,7 @@ export const CreatExperiment = async (req,res) => {
         "experimentName":experiment.experimentName,
         "questions": experiment.questions
     })
-    console.log(experiment);
-    console.log(newExperiment);
+    
    try {
         await newExperiment.save();
         res.status(201).json(newExperiment)
@@ -35,3 +33,4 @@ export const FetchExperimentByName = async (req, res) => {
         res.status(500).json({message: error});
     }
 }
+
