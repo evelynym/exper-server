@@ -12,6 +12,10 @@ export const getExperiments = async(req,res) => {
 
 export const CreatExperiment = async (req,res) => {
     const experiment =req.body;
+    console.log(await Experiment.find({"experimentName": experiment.experimentName}));
+    if(await Experiment.find({"experimentName": experiment.experimentName}).count() > 0){
+        return res.status(409).json({"message":'name already exists'});
+    }
     const newExperiment = new Experiment({
         "experimentName":experiment.experimentName,
         "questions": experiment.questions
@@ -49,3 +53,15 @@ export const DeleteExperimentById = async (req,res) => {
     }
 }
 
+// TBD: If I use the API to check if the experiments name is exists
+//      
+export const IsExistsExperimentByName = async (req,res) => {
+    const name = req.params.name;
+    const found = await Experiment.find({"experimentName": name})
+    if(found.length === 0){
+        res.status(200);
+    }
+    else{
+        res.status(409).json({message:'experiment name already exists'});
+    }
+}
