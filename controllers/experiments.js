@@ -94,8 +94,10 @@ export const UpdateExperiment = async (req, res) => {
   }
 };
 
-// TBD: If I use the API to check if the experiments name is exists
-//
+// TBD:
+// I use this API to check if the experiment name is exists
+// If the experiment name is exists it should return 200
+// however I got 409
 export const IsExistsExperimentByName = async (req, res) => {
   const name = req.params.name;
   const found = await Experiment.find({ experimentName: name });
